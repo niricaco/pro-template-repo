@@ -9,4 +9,5 @@ mongoose.connect(config.CONNECTION_STRING, () => {
     app.listen(config.PORT, () => {
         console.log(`Listening at localhost:${config.PORT}...`)
     });
+
 }, e => console.error(e));

@@ -1,3 +1,5 @@
+console.log("runs app.js line 1")
+
 const express = require('express')
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -9,9 +11,11 @@ const dashboardRoutes = require('./route/dashboard.js');
 const app = express();
 const config = process.env;
 
-app.use(cors({
-    origin: config.APP_URL
-}));
+app.use(
+    cors({
+        origin: config.APP_URL
+    })
+);
 
 app.use(express.json());
 
@@ -25,6 +29,7 @@ app.get('/api/public', (req, res) => {
 });
 
 app.get('/api/private', auth({ block: true }), (req, res) => {
+    console.log('runs app.js line 47')
     if (!res.locals.userid) return res.sendStatus(401);
     console.log("private");
     res.send(`Hello world private ${res.locals.userid} `);

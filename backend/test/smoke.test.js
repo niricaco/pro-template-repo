@@ -1,5 +1,7 @@
 const app = require('../app')
 const mockserver = require('supertest');
+const mongoose = require('mongoose');
+const { MongoMemoryServer } = require('mongodb-memory-server');
 
 /*const assert = require('assert');
 const express = require('express');
@@ -39,4 +41,24 @@ test('/api/random returns 404', async() => {
 
     // then
     expect(response.status).toBe(404);
+})
+
+test('mongo in memory server is running', async() => {
+    // given
+    const mongod = await MongoMemoryServer.create();
+    const uri = mongod.getUri();
+    const connection = await mongoose.connect(uri);
+
+    const Cat = mongoose.model('Cat', { name: String });
+
+    const kitty = new Cat({ name: 'macska' });
+
+    // when
+    await kitty.save();
+
+    // then
+    const cat = await Cat.findOne();
+    expect(cat.name).toBe('macska');
+    await connection.disconnect();
+    await mongod.stop();
 })
