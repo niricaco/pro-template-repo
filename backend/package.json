@@ -1,21 +1,23 @@
 {
-  "dependencies": {
-    "axios": "^0.27.2",
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.1",
-    "express": "^4.18.1",
-    "mongoose": "^6.3.4"
-  },
-  "scripts": {
-    "start": "node server.js"
-  },
-  "name": "template",
-  "version": "1.0.0",
-  "main": "server.js",
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "devDependencies": {
-    "supertest": "^6.2.3"
-  }
+    "dependencies": {
+        "axios": "^0.27.2",
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.1",
+        "express": "^4.18.1",
+        "mongoose": "^6.3.4"
+    },
+    "scripts": {
+        "start": "node server.js",
+        "test": "jest"
+    },
+    "name": "template",
+    "version": "1.0.0",
+    "main": "server.js",
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "devDependencies": {
+        "jest": "^28.1.0",
+        "supertest": "^6.2.3"
+    }
 }
