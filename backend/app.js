@@ -1,4 +1,4 @@
-console.log("runs app.js line 1")
+//console.log("runs app.js line 1")
 
 const express = require('express')
 const mongoose = require('mongoose');
@@ -25,20 +25,20 @@ app.use('/api/dashboards', dashboardRoutes);
 
 app.get('/api/public', (req, res) => {
     console.log("public");
-    res.send("Hello world public");
+    res.json("Hello world public");
 });
 
 app.get('/api/private', auth({ block: true }), (req, res) => {
     console.log('runs app.js line 47')
     if (!res.locals.userid) return res.sendStatus(401);
     console.log("private");
-    res.send(`Hello world private ${res.locals.userid} `);
+    res.json(`Hello world private ${res.locals.userid} `);
 });
 
 app.get('/api/both', auth({ block: false }), (req, res) => {
     console.log("both");
     if (!res.locals.userid) res.send("Hello world public");
-    res.send(`Hello world public and also private ${res.locals.userid} `);
+    res.json(`Hello world public and also private ${res.locals.userid} `);
 });
 
 app.use(errorhandler);
