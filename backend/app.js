@@ -6,7 +6,8 @@ const cors = require('cors');
 const { logger } = require("./middlewares/logger");
 const auth = require("./middlewares/auth");
 const errorhandler = require("./middlewares/errorhandler");
-const dashboardRoutes = require('./route/dashboard.js');
+const dashboardRoutes = require('./routes/dashboard.js');
+const userRoutes = require('./routes/user.js');
 
 const app = express();
 const config = process.env;
@@ -22,6 +23,7 @@ app.use(express.json());
 app.use(logger);
 
 app.use('/api/dashboards', dashboardRoutes);
+app.use('/api/user', userRoutes);
 
 app.get('/api/public', (req, res) => {
     console.log("public");
@@ -40,6 +42,8 @@ app.get('/api/both', auth({ block: false }), (req, res) => {
     if (!res.locals.userid) res.send("Hello world public");
     res.json(`Hello world public and also private ${res.locals.userid} `);
 });
+
+
 
 app.use(errorhandler);
 
