@@ -7,20 +7,20 @@ const http = httpModule();
 
 const config = {
     google: {
-        client_id: "423125049963-vnhlm59vvirdjsquu0efhqvq5u91orks.apps.googleusercontent.com",
-        client_secret: "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",
+        client_id: process.env.CLIENT_ID_GOOGLE,
+        client_secret: process.env.CLIENT_SECRET_GOOGLE,
         redirect_uri: "http://localhost:3000/callback",
         token_endpoint: "https://oauth2.googleapis.com/token"
     },
-    /*
-    facebook: {
-        client_id: "", //appid?
-        client_secret: "", //appsecret ?
-        redirect_uri: "",
-        token_endpoint: ""
+
+    github: {
+        client_id: process.env.CLIENT_ID_GITHUB, //appid?
+        client_secret: process.env.CLIENT_SECRET_GITHUB,
+        redirect_uri: "http://localhost:3000/callback/github",
+        token_endpoint: "https://github.com/login/oauth/access_token"
 
     }
-    */
+
 }
 
 router.post('/login', async(req, res) => {
@@ -51,6 +51,7 @@ router.post('/login', async(req, res) => {
 
     const decoded = jwt.decode(response.data.id_token);
     if (!decoded) return res.sendStatus(500);
+    console.log(decoded);
 
     const key = "providers." + provider;
     let user = await User.findOneAndUpdate({
